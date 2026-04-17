@@ -20,6 +20,13 @@ const plans = [
 ];
 
 const PurchaseModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+
+  const handleClose = () => {
+    setSelectedPlan(null);
+    onClose();
+  };
+
   return (
     <AnimatePresence>
       {open && (
@@ -29,7 +36,7 @@ const PurchaseModal = ({ open, onClose }: { open: boolean; onClose: () => void }
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={handleClose}
           />
           <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
@@ -40,53 +47,83 @@ const PurchaseModal = ({ open, onClose }: { open: boolean; onClose: () => void }
           >
             <div className="w-full max-w-2xl border border-border rounded-2xl bg-card p-8 border-glow relative pointer-events-auto" onClick={(e) => e.stopPropagation()}>
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 className="absolute top-3 right-3 w-10 h-10 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors text-xl leading-none z-10"
                 aria-label="Close"
               >
                 ✕
               </button>
 
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground tracking-tight text-center">
-                Choose your plan
-              </h2>
-              <p className="mt-2 text-muted-foreground font-body text-center text-sm">
-                Select what works best for you.
-              </p>
-
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {plans.map((plan) => (
-                  <div
-                    key={plan.name}
-                    className="relative border border-border rounded-xl p-6 bg-background hover:border-muted-foreground/40 transition-colors group"
+              {selectedPlan ? (
+                <div className="text-center py-4">
+                  <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
+                    Complete your {selectedPlan} purchase
+                  </h2>
+                  <p className="mt-4 text-muted-foreground font-body">
+                    To complete your payment, please join our Discord server.
+                  </p>
+                  <p className="mt-2 text-muted-foreground font-body text-sm">
+                    Our team will process your order and get you set up right away.
+                  </p>
+                  <a
+                    href="https://discord.gg/exoai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-block w-full sm:w-auto px-8 py-3 bg-foreground text-background font-display text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity"
                   >
-                    {plan.badge && (
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-foreground text-background text-xs font-display font-semibold px-3 py-1 rounded-full">
-                        {plan.badge}
-                      </span>
-                    )}
-                    <h3 className="font-display text-lg font-semibold text-foreground">{plan.name}</h3>
-                    <div className="mt-2 flex items-baseline gap-1">
-                      <span className="font-display text-4xl font-bold text-foreground">{plan.price}</span>
-                      {plan.period && <span className="text-sm text-muted-foreground font-body">{plan.period}</span>}
-                    </div>
-                    <p className="mt-1 text-sm text-muted-foreground font-body">{plan.description}</p>
-                    <ul className="mt-4 space-y-2">
-                      {plan.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-sm text-secondary-foreground font-body">
-                          <span className="text-foreground">✓</span> {f}
-                        </li>
-                      ))}
-                    </ul>
-                    <a
-                      href="#"
-                      className="mt-6 block w-full text-center py-3 bg-foreground text-background font-display text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity"
-                    >
-                      Get {plan.name}
-                    </a>
+                    Join discord.gg/exoai
+                  </a>
+                  <button
+                    onClick={() => setSelectedPlan(null)}
+                    className="mt-4 block mx-auto text-sm text-muted-foreground hover:text-foreground font-body transition-colors"
+                  >
+                    ← Back to plans
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground tracking-tight text-center">
+                    Choose your plan
+                  </h2>
+                  <p className="mt-2 text-muted-foreground font-body text-center text-sm">
+                    Select what works best for you.
+                  </p>
+
+                  <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {plans.map((plan) => (
+                      <div
+                        key={plan.name}
+                        className="relative border border-border rounded-xl p-6 bg-background hover:border-muted-foreground/40 transition-colors group"
+                      >
+                        {plan.badge && (
+                          <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-foreground text-background text-xs font-display font-semibold px-3 py-1 rounded-full">
+                            {plan.badge}
+                          </span>
+                        )}
+                        <h3 className="font-display text-lg font-semibold text-foreground">{plan.name}</h3>
+                        <div className="mt-2 flex items-baseline gap-1">
+                          <span className="font-display text-4xl font-bold text-foreground">{plan.price}</span>
+                          {plan.period && <span className="text-sm text-muted-foreground font-body">{plan.period}</span>}
+                        </div>
+                        <p className="mt-1 text-sm text-muted-foreground font-body">{plan.description}</p>
+                        <ul className="mt-4 space-y-2">
+                          {plan.features.map((f) => (
+                            <li key={f} className="flex items-center gap-2 text-sm text-secondary-foreground font-body">
+                              <span className="text-foreground">✓</span> {f}
+                            </li>
+                          ))}
+                        </ul>
+                        <button
+                          onClick={() => setSelectedPlan(plan.name)}
+                          className="mt-6 block w-full text-center py-3 bg-foreground text-background font-display text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity"
+                        >
+                          Get {plan.name}
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </>
+              )}
             </div>
           </motion.div>
         </>
