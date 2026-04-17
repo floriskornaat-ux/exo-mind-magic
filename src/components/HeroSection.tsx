@@ -28,7 +28,7 @@ const HeroSection = () => {
       {/* Corner ticks */}
       <div className="absolute top-24 left-6 sm:left-10 hidden sm:flex items-center gap-2 text-xs font-display uppercase tracking-[0.3em] text-muted-foreground z-10">
         <span className="w-8 h-px bg-border" />
-        v2.4 — live
+        v0.85 beta — live
       </div>
       <div className="absolute top-24 right-6 sm:right-10 hidden sm:flex items-center gap-2 text-xs font-display uppercase tracking-[0.3em] text-muted-foreground z-10">
         EU / NA / OCE
