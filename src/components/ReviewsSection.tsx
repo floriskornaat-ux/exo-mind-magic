@@ -17,6 +17,7 @@ const reviews = [
   { name: "Jonny", text: "Thank you so much guys! ❤️", date: "Mar 2026" },
   { name: "NPC.arf", tag: "NXPY", text: "Works good even with my bad graphics. Best support.", date: "Apr 2026" },
   { name: "Kaji", text: "Love this AI 🥹", date: "Mar 2026" },
+  { name: "EXO sealz!", tag: "Exo", text: "+rep this ai has good tracking for cheap prices", date: "21:04" },
 ];
 
 const ReviewsSection = () => {
