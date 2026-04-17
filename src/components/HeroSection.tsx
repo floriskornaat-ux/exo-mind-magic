@@ -77,7 +77,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
-          The most advanced AI-powered aim assistance. Smooth tracking, undetectable performance, and insane precision — trusted by thousands.
+          The most advanced AI-powered aim assistance. Smooth tracking, undetectable performance, and insane precision — trusted by hundreds.
         </motion.p>
 
         <motion.div
